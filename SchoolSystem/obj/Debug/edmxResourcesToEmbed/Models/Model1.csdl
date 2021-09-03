@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="uniModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="AllocateClassroom">
+    <Key>
+      <PropertyRef Name="ClassId" />
+    </Key>
+    <Property Name="ClassId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CourseId" Type="Int32" Nullable="false" />
+    <Property Name="FromTime" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="ToTime" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="Action" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Course" Relationship="Self.FK_AllocateClassroom_Course" FromRole="AllocateClassroom" ToRole="Course" />
+  </EntityType>
+  <EntityType Name="classs">
+    <Key>
+      <PropertyRef Name="ClassId" />
+    </Key>
+    <Property Name="ClassId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="classname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Students" Relationship="Self.FK_Student_classs" FromRole="classs" ToRole="Student" />
+  </EntityType>
+  <EntityType Name="Course">
+    <Key>
+      <PropertyRef Name="CourseId" />
+    </Key>
+    <Property Name="CourseId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CourseName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="AllocateClassrooms" Relationship="Self.FK_AllocateClassroom_Course" FromRole="Course" ToRole="AllocateClassroom" />
+    <NavigationProperty Name="CourseAssignToTeachers" Relationship="Self.FK_CourseAssignToTeacher_Course" FromRole="Course" ToRole="CourseAssignToTeacher" />
+    <NavigationProperty Name="Students" Relationship="Self.FK_Student_Course" FromRole="Course" ToRole="Student" />
+    <NavigationProperty Name="Teachers" Relationship="Self.FK_Teacher_Course" FromRole="Course" ToRole="Teacher" />
+  </EntityType>
+  <EntityType Name="CourseAssignToTeacher">
+    <Key>
+      <PropertyRef Name="CourseAsgnId" />
+    </Key>
+    <Property Name="CourseAsgnId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TeacherId" Type="Int32" Nullable="false" />
+    <Property Name="CourseId" Type="Int32" Nullable="false" />
+    <Property Name="Action" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Course" Relationship="Self.FK_CourseAssignToTeacher_Course" FromRole="CourseAssignToTeacher" ToRole="Course" />
+    <NavigationProperty Name="Teacher" Relationship="Self.FK_CourseAssignToTeacher_Teacher" FromRole="CourseAssignToTeacher" ToRole="Teacher" />
+  </EntityType>
+  <EntityType Name="Student">
+    <Key>
+      <PropertyRef Name="StudentId" />
+    </Key>
+    <Property Name="StudentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StudentName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="TeacherId" Type="Int32" Nullable="false" />
+    <Property Name="Courseid" Type="Int32" Nullable="false" />
+    <Property Name="Classid" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="classs" Relationship="Self.FK_Student_classs" FromRole="Student" ToRole="classs" />
+    <NavigationProperty Name="Course" Relationship="Self.FK_Student_Course" FromRole="Student" ToRole="Course" />
+    <NavigationProperty Name="Teacher" Relationship="Self.FK_Student_Teacher" FromRole="Student" ToRole="Teacher" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="Teacher">
+    <Key>
+      <PropertyRef Name="TeacherId" />
+    </Key>
+    <Property Name="TeacherId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Address" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="ContactNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Courseid" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Course" Relationship="Self.FK_Teacher_Course" FromRole="Teacher" ToRole="Course" />
+    <NavigationProperty Name="CourseAssignToTeachers" Relationship="Self.FK_CourseAssignToTeacher_Teacher" FromRole="Teacher" ToRole="CourseAssignToTeacher" />
+    <NavigationProperty Name="Students" Relationship="Self.FK_Student_Teacher" FromRole="Teacher" ToRole="Student" />
+  </EntityType>
+  <Association Name="FK_AllocateClassroom_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="AllocateClassroom" Type="Self.AllocateClassroom" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="AllocateClassroom">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Student_classs">
+    <End Role="classs" Type="Self.classs" Multiplicity="1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="classs">
+        <PropertyRef Name="ClassId" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="Classid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseAssignToTeacher_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="CourseAssignToTeacher" Type="Self.CourseAssignToTeacher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="CourseAssignToTeacher">
+        <PropertyRef Name="CourseId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Student_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="Courseid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Teacher_Course">
+    <End Role="Course" Type="Self.Course" Multiplicity="1" />
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Course">
+        <PropertyRef Name="CourseId" />
+      </Principal>
+      <Dependent Role="Teacher">
+        <PropertyRef Name="Courseid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CourseAssignToTeacher_Teacher">
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
+    <End Role="CourseAssignToTeacher" Type="Self.CourseAssignToTeacher" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="TeacherId" />
+      </Principal>
+      <Dependent Role="CourseAssignToTeacher">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Student_Teacher">
+    <End Role="Teacher" Type="Self.Teacher" Multiplicity="1" />
+    <End Role="Student" Type="Self.Student" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Teacher">
+        <PropertyRef Name="TeacherId" />
+      </Principal>
+      <Dependent Role="Student">
+        <PropertyRef Name="TeacherId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="uniEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AllocateClassrooms" EntityType="Self.AllocateClassroom" />
+    <EntitySet Name="classses" EntityType="Self.classs" />
+    <EntitySet Name="Courses" EntityType="Self.Course" />
+    <EntitySet Name="CourseAssignToTeachers" EntityType="Self.CourseAssignToTeacher" />
+    <EntitySet Name="Students" EntityType="Self.Student" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="Teachers" EntityType="Self.Teacher" />
+    <AssociationSet Name="FK_AllocateClassroom_Course" Association="Self.FK_AllocateClassroom_Course">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="AllocateClassroom" EntitySet="AllocateClassrooms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Student_classs" Association="Self.FK_Student_classs">
+      <End Role="classs" EntitySet="classses" />
+      <End Role="Student" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseAssignToTeacher_Course" Association="Self.FK_CourseAssignToTeacher_Course">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="CourseAssignToTeacher" EntitySet="CourseAssignToTeachers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Student_Course" Association="Self.FK_Student_Course">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="Student" EntitySet="Students" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Teacher_Course" Association="Self.FK_Teacher_Course">
+      <End Role="Course" EntitySet="Courses" />
+      <End Role="Teacher" EntitySet="Teachers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CourseAssignToTeacher_Teacher" Association="Self.FK_CourseAssignToTeacher_Teacher">
+      <End Role="Teacher" EntitySet="Teachers" />
+      <End Role="CourseAssignToTeacher" EntitySet="CourseAssignToTeachers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Student_Teacher" Association="Self.FK_Student_Teacher">
+      <End Role="Teacher" EntitySet="Teachers" />
+      <End Role="Student" EntitySet="Students" />
+    </AssociationSet>
+    <EntitySet Name="Users" EntityType="uniModel.User" />
+  </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

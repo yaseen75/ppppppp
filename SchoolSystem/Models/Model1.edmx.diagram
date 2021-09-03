@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="3ab19f43d7954eebb2a0795b19d5a041" Name="Diagram1">
+        <EntityTypeShape EntityType="uniModel.AllocateClassroom" Width="1.5" PointX="3" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="uniModel.classs" Width="1.5" PointX="6" PointY="8.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="uniModel.Course" Width="1.5" PointX="0.75" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="uniModel.CourseAssignToTeacher" Width="1.5" PointX="5.25" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="uniModel.Student" Width="1.5" PointX="8.25" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="uniModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="uniModel.Teacher" Width="1.5" PointX="3" PointY="14.875" IsExpanded="true" />
+        <AssociationConnector Association="uniModel.FK_AllocateClassroom_Course" ManuallyRouted="false" />
+        <AssociationConnector Association="uniModel.FK_Student_classs" ManuallyRouted="false" />
+        <AssociationConnector Association="uniModel.FK_CourseAssignToTeacher_Course" ManuallyRouted="false" />
+        <AssociationConnector Association="uniModel.FK_Student_Course" ManuallyRouted="false" />
+        <AssociationConnector Association="uniModel.FK_Teacher_Course" ManuallyRouted="false" />
+        <AssociationConnector Association="uniModel.FK_CourseAssignToTeacher_Teacher" ManuallyRouted="false" />
+        <AssociationConnector Association="uniModel.FK_Student_Teacher" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="uniModel.User" Width="1.5" PointX="3.375" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

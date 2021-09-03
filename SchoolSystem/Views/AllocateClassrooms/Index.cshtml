@@ -1,0 +1,51 @@
+﻿@model IEnumerable<SchoolSystem.Models.AllocateClassroom>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table  table-bordered">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.FromTime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ToTime)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Action)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.Course.CourseName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.FromTime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ToTime)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Action)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.Course.CourseName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ClassId }, new { @class = "btn btn-primary" }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ClassId }, new { @class = "btn btn-info" }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ClassId }, new { @class = "btn btn-danger" })
+        </td>
+    </tr>
+}
+
+</table>
